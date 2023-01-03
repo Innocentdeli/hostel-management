@@ -1,12 +1,13 @@
 <?php
 session_start();
 include('includes/config.php');
+include('./sqlb/hostel.php');
 if(isset($_POST['login']))
 {
 $emailreg=$_POST['emailreg'];
 $password=$_POST['password'];
-$stmt=$mysqli->prepare("SELECT email,password,id FROM userregistration WHERE (email=? || regNo=?) and password=? ");
-				$stmt->bind_param('sss',$emailreg,$emailreg,$password);
+$stmt=$mysqli->prepare("SELECT email,password,id FROM userregistration WHERE email=?  and password=? ");
+				$stmt->bind_param('ss', $emailreg,$password);
 				$stmt->execute();
 				$stmt -> bind_result($email,$password,$id);
 				$rs=$stmt->fetch();
